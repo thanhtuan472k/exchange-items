@@ -58,7 +58,7 @@ export default function ProductItem({
           <span>{product.price} VNĐ</span>
           <div className="seller">
             <p>
-              {product.seller_name}, {product.study_year}-{product.course}
+              {product.seller_name}, {product.student_class}-{product.major}
             </p>
             <p>
               <img

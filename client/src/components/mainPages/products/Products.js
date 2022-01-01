@@ -21,7 +21,7 @@ export default function Products() {
   return (
     <>
       <Filter />
-      <ImageSlider SliderData={SliderData} />
+      {/* <ImageSlider SliderData={SliderData} /> */}
       {loading ? (
         <Container />
       ) : (

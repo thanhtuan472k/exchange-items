@@ -20,6 +20,7 @@ const initialState = {
 function SellApp() {
   const state = useContext(GlobalState);
   const [user] = state.userAPI.user;
+  const [categories] = state.categoriesAPI.categories;
   const [product, setProduct] = useState(initialState);
   const [image, setImage] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -150,7 +151,7 @@ function SellApp() {
     e.preventDefault();
     try {
       if (!image)
-        return toastify("please attach image", "error");
+        return toastify("Chưa thêm ảnh mô tả", "error");
       // return toastNotification("please attach image", "error");
       if (edit) {
         const res = await axios.put(
@@ -173,10 +174,10 @@ function SellApp() {
             ...product,
             seller_id: user._id,
             seller_name: user.name,
-            study_year: user.study_year,
-            course: user.course,
+            student_class: user.student_class,
+            major: user.major,
             phone: user.phone,
-            location: user.location,
+            address: user.location,
             image,
           },
           {
@@ -186,17 +187,17 @@ function SellApp() {
           }
         );
         console.log(res.data.message);
-        const addCategory = await axios.post(
-          "/api/category",
-          { name: product.category },
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
-        );
-        console.log(addCategory.data.message);
-        message = res.data.message;
+        // const addCategory = await axios.post(
+        //   "/api/category",
+        //   { name: product.category },
+        //   {
+        //     headers: {
+        //       Authorization: token,
+        //     },
+        //   }
+        // );
+        // console.log(addCategory.data.message);
+        // message = res.data.message;
       }
       setImage(false);
       setProduct(initialState);
@@ -242,7 +243,7 @@ function SellApp() {
           </div>
           <form onSubmit={handleSubmit}>
             <div>
-              <h2>&bull; Product Detail &bull;</h2>
+              <h2>&bull; Thông tin đăng bài &bull;</h2>
               <div className="underline"></div>
             </div>
             <div className="row">
@@ -257,7 +258,7 @@ function SellApp() {
               />
             </div>
             <div className="row">
-              <label htmlFor="title">title</label>
+              <label htmlFor="title">Tiêu đề</label>
               <input
                 type="text"
                 name="title"
@@ -267,7 +268,7 @@ function SellApp() {
               />
             </div>
             <div className="row">
-              <label htmlFor="price">price</label>
+              <label htmlFor="price">Giá</label>
               <input
                 type="number"
                 name="price"
@@ -288,14 +289,31 @@ function SellApp() {
               />
             </div>
             <div className="row">
-              <label htmlFor="category">category</label>
-              <input
+              <label htmlFor="category">Chọn danh mục</label>
+              {/* <input
                 type="text"
                 name="category"
                 id="category"
                 value={product.category}
                 onChange={handleChange}
-              />
+              /> */}
+              <select name="category"
+                id="category"
+                value={product.category}
+                onChange={handleChange}
+              required>
+                <option value="">Chọn danh mục bài đăng</option>
+                {categories.map((category) => {
+                  return (
+                    <option
+                      value={category.category}
+                      key={category._id}
+                    >
+                      {category.name}
+                    </option>
+                  )
+                })}
+              </select>
             </div>
             <div className="row">
               <label htmlFor="condition">condition</label>
@@ -313,7 +331,7 @@ function SellApp() {
               <div>
                 <h4 className="h4">SELLER</h4>
                 <span>
-                  {user.name}, {user.study_year}-{user.course}
+                  {user.name}, {user.student_class}-{user.major}
                 </span>
               </div>
               <div>

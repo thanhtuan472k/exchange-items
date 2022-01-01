@@ -86,8 +86,9 @@
 .product span {
   position: relative;
   font-size: 16px;
-  color: #e7e9bb;
-  text-transform: uppercase;
+  font-weight: bold;
+  color: #d61010;
+  /* text-transform: uppercase; */
   letter-spacing: 1.25px;
 }
 hr {
@@ -112,7 +113,7 @@ hr {
   border-top: 1.5px solid #403b4a;
   letter-spacing: 0.5px;
   font-size: 18px;
-  text-transform: capitalize;
+  /* text-transform: capitalize; */
   padding-top: 10px;
   padding-bottom: 10px;
 }

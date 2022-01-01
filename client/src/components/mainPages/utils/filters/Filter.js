@@ -36,7 +36,7 @@ export default function Filter() {
         <input
           type="text"
           value={search}
-          placeholder="Search..."
+          placeholder="Tìm kiếm món đồ"
           onChange={(e) => setSearch(e.target.value.toLocaleLowerCase())}
         />
         <div className="sort">
