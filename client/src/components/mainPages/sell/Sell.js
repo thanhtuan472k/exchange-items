@@ -9,12 +9,10 @@ import { useParams, useHistory } from "react-router-dom";
 import { ToastProvider, useToasts } from "react-toast-notifications";
 
 const initialState = {
-  product_id: "",
   title: "",
   price: 0,
   description: "",
   category: "",
-  condition: 0,
 };
 
 function SellApp() {
@@ -74,7 +72,7 @@ function SellApp() {
       let fileType = path.extname(file.name);
 
       if (!file)
-        return toast.error("file not found", {
+        return toast.error("Không tìm thấy file ảnh", {
           style: {
             borderRadius: "0px",
             background: "#333",
@@ -83,7 +81,7 @@ function SellApp() {
         });
 
       if (file.size > 1024 * 1024 * 5)
-        return toast.error("file size is big", {
+        return toast.error("File ảnh quá lớn", {
           style: {
             borderRadius: "0px",
             background: "#333",
@@ -92,7 +90,7 @@ function SellApp() {
         });
 
       if (!supportedType.includes(fileType))
-        return toast.error("file format not supported", {
+        return toast.error("Không hỗ trợ định dạng này", {
           style: {
             borderRadius: "0px",
             background: "#333",
@@ -172,12 +170,12 @@ function SellApp() {
           "/api/products",
           {
             ...product,
-            seller_id: user._id,
+            seller_id: user._id, // doi seller_id thanh objectId của mongoose
             seller_name: user.name,
             student_class: user.student_class,
             major: user.major,
             phone: user.phone,
-            address: user.location,
+            address: user.address,
             image,
           },
           {
@@ -218,35 +216,15 @@ function SellApp() {
   };
 
   return (
-    <div className="sell_body">
-      <div className="sell_product">
-        <div>
-          <div className="upload">
-            <input
-              type="file"
-              name="file"
-              id="file_upload"
-              onChange={handleUpload}
-            />
-            {loading ? (
-              <div className="file_img">
-                <Loading />
-              </div>
-            ) : (
-              <div className="file_img" style={styleUpload}>
-                <img src={image ? image.url : ""} alt="" />
-                <span onClick={handleDelete}>
-                  <img src={Cross} alt="" />
-                </span>
-              </div>
-            )}
-          </div>
-          <form onSubmit={handleSubmit}>
-            <div>
-              <h2>&bull; Thông tin đăng bài &bull;</h2>
-              <div className="underline"></div>
-            </div>
-            <div className="row">
+      <div className="sell_body">
+          <div className="sell_product">
+              <div>
+                  <form onSubmit={handleSubmit}>
+                      <div>
+                          <h2>&bull; Thêm mới bài đăng &bull;</h2>
+                          <div className="underline"></div>
+                      </div>
+                      {/* <div className="row">
               <label htmlFor="product_id">product id</label>
               <input
                 type="text"
@@ -256,100 +234,102 @@ function SellApp() {
                 onChange={handleChange}
                 disabled={edit}
               />
-            </div>
-            <div className="row">
-              <label htmlFor="title">Tiêu đề</label>
-              <input
-                type="text"
-                name="title"
-                id="title"
-                value={product.title}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="row">
-              <label htmlFor="price">Giá</label>
-              <input
-                type="number"
-                name="price"
-                id="price"
-                value={product.price}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="row">
-              <label htmlFor="description">Mô tả chi tiết</label>
-              <textarea
-                type="text"
-                name="description"
-                id="description"
-                rows="5"
-                value={product.description}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="row">
-              <label htmlFor="category">Chọn danh mục</label>
-              {/* <input
+            </div> */}
+                      <div className="row">
+                          <label htmlFor="title">Tiêu đề</label>
+                          <input type="text" name="title" id="title" value={product.title} onChange={handleChange} />
+                      </div>
+                      <div className="row">
+                          <label htmlFor="price">Giá</label>
+                          <input type="number" name="price" id="price" value={product.price} onChange={handleChange} />
+                      </div>
+                      <div className="row">
+                          <label htmlFor="description">Mô tả chi tiết</label>
+                          <textarea
+                              type="text"
+                              name="description"
+                              id="description"
+                              rows="5"
+                              value={product.description}
+                              onChange={handleChange}
+                          />
+                      </div>
+                      <div className="row">
+                          <label htmlFor="category">Chọn danh mục</label>
+                          {/* <input
                 type="text"
                 name="category"
                 id="category"
                 value={product.category}
                 onChange={handleChange}
               /> */}
-              <select name="category"
-                id="category"
-                value={product.category}
-                onChange={handleChange}
-              required>
-                <option value="">Chọn danh mục bài đăng</option>
-                {categories.map((category) => {
-                  return (
-                    <option
-                      value={category.category}
-                      key={category._id}
-                    >
-                      {category.name}
-                    </option>
-                  )
-                })}
-              </select>
-            </div>
-            <div className="row">
-              <label htmlFor="condition">condition</label>
-              <input
-                type="number"
-                name="condition"
-                id="condition"
-                value={product.condition}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="seller_desc">
-              <h2>&bull; your Detail &bull;</h2>
-              <div className="underline"></div>
-              <div>
-                <h4 className="h4">SELLER</h4>
-                <span>
-                  {user.name}, {user.student_class}-{user.major}
-                </span>
+                          <select
+                              name="category"
+                              id="category"
+                              value={product.category}
+                              onChange={handleChange}
+                              required
+                          >
+                              <option value="">Chọn danh mục bài đăng</option>
+                              {categories.map((category) => {
+                                  return (
+                                      <option value={category.category} key={category._id}>
+                                          {category.name}
+                                      </option>
+                                  );
+                              })}
+                          </select>
+                      </div>
+                      <div className="upload">
+                          <input type="file" name="file" id="file_upload" onChange={handleUpload} />
+                          {loading ? (
+                              <div className="file_img">
+                                  <Loading />
+                              </div>
+                          ) : (
+                              <div className="file_img" style={styleUpload}>
+                                  <img src={image ? image.url : ''} alt="" />
+                                  <span onClick={handleDelete}>
+                                      <img src={Cross} alt="" />
+                                  </span>
+                              </div>
+                          )}
+                      </div>
+                      {/* <div className="row">
+                          <label htmlFor="condition">condition</label>
+                          <input
+                              type="number"
+                              name="condition"
+                              id="condition"
+                              value={product.condition}
+                              onChange={handleChange}
+                          />
+                      </div> */}
+                      <div className="seller_desc">
+                          <h2>&bull; Thông tin người đăng&bull;</h2>
+                          <div className="underline"></div>
+                          <div>
+                              <h4 className="h4">Tên - Lớp Sinh Hoạt</h4>
+                              <span>
+                                  {user.name}, {user.student_class}-{user.major}
+                              </span>
+                          </div>
+                          <div>
+                              <h4 className="h4">Địa chỉ</h4>
+                              <span>{user.address}</span>
+                          </div>
+                          <div>
+                              <h4 className="h4">SĐT</h4>
+                              <span>{user.phone}</span>
+                          </div>
+                      </div>
+                      <button type="submit">
+                          <span>{edit ? 'Update' : 'Đăng bài'}</span>
+                      </button>
+                  </form>
               </div>
-              <div>
-                <h4 className="h4">LOCATION</h4>
-                <span>{user.location}</span>
-              </div>
-              <div>
-                <h4 className="h4">PHONE</h4>
-                <span>{user.phone}</span>
-              </div>
-            </div>
-            <button type="submit">
-              <span>{edit ? "Update" : "Post Now"}</span>
-            </button>
-          </form>
-        </div>
+          </div>
       </div>
-    </div>
   );
 }
 
