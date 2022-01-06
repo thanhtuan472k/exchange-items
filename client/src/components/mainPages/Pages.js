@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import {Switch, Route} from 'react-router-dom';
-import Products from './products/Products';
-import ProductDetail from './product_detail/ProductDetail';
+import Posts from './posts/Posts';
+import PostDetail from './post_detail/PostDetail';
 import Login from "./auth/Login";
 import Register from "./auth/Register";
 import NotFound from "./utils/not_found/NotFound";
@@ -15,32 +15,32 @@ function Pages() {
   const [isLogged] = state.userAPI.isLogged;
     return (
       <Switch>
-        <Route path="/" exact component={Products}></Route>
-        <Route path="/details/:id" exact component={ProductDetail}></Route>
+        <Route path="/" exact component={Posts}></Route>
+        <Route path="/details/:id" exact component={PostDetail}></Route>
         <Route
           path="/chat"
           exact
-          component={isLogged ? ChatBox : Products}
+          component={isLogged ? ChatBox : Posts}
         ></Route>
         <Route
           path="/chat/:id"
           exact
-          component={isLogged ? ChatBox : Products}
+          component={isLogged ? ChatBox : Posts}
         ></Route>
         <Route
           path="/login"
           exact
-          component={isLogged ? Products : Login}
+          component={isLogged ? Posts : Login}
         ></Route>
         <Route
           path="/register"
           exact
-          component={isLogged ? Products : Register}
+          component={isLogged ? Posts : Register}
         ></Route>
         <Route path="/my_ad" exact component={isLogged ? MyAd : Login}></Route>
         <Route path="/sell" exact component={isLogged ? Sell : Login}></Route>
         <Route
-          path="/edit_product/:id"
+          path="/edit_post/:id"
           exact
           component={isLogged ? Sell : Login}
         ></Route>

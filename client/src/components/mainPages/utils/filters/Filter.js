@@ -3,10 +3,10 @@ import { GlobalState } from "../../../../globalState";
 
 export default function Filter() {
   const state = useContext(GlobalState);
-  const [categories] = state.productsAPI.categories;
-  const [category, setCategory] = state.productsAPI.category;
-  const [sort, setSort] = state.productsAPI.sort;
-  const [search, setSearch] = state.productsAPI.search;
+  const [categories] = state.postsAPI.categories;
+  const [category, setCategory] = state.postsAPI.category;
+  const [sort, setSort] = state.postsAPI.sort;
+  const [search, setSearch] = state.postsAPI.search;
 
   const handleClick = (e) => {
     setCategory(e.target.id);

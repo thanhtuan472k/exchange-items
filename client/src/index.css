@@ -58,11 +58,11 @@ button {
 /* --------footer-------- */
 @import url("./components/footer/Footer.css");
 
-/*-----------products------------*/
-@import url("./components/mainPages/products/Products.css");
+/*-----------posts------------*/
+@import url("./components/mainPages/posts/Posts.css");
 
-/*-----------product detail------------*/
-@import url("./components/mainPages/product_detail/ProductDetail.css");
+/*-----------post detail------------*/
+@import url("./components/mainPages/post_detail/PostDetail.css");
 
 /*--------------login------------*/
 @import url("./components/mainPages/auth/Auth.css");

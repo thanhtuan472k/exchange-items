@@ -2,7 +2,7 @@ import React from 'react'
 import Delete from './delete.png'
 import './Modal.css'
 
-export default function Modal({open, onClose, deleteProduct}) {
+export default function Modal({open, onClose, deletePost}) {
     if(!open) return null;
     return (
       <>
@@ -10,14 +10,14 @@ export default function Modal({open, onClose, deleteProduct}) {
         <div className="modal" >
           <img src={Delete} alt="" />
           <h3 style={{fontFamily: "Poppins"}}>
-            Your are about to delete your ad!
+            Bạn muốn xóa bài đăng này?
           </h3>
           <div className="button">
-            <button onClick={onClose}>Cancel</button>
+            <button onClick={onClose}>Hủy</button>
             <button className="delete" onClick={() => {
               onClose()
-              deleteProduct()
-            }}>Delete</button>
+              deletePost();
+            }}>Xóa</button>
           </div>
         </div>
       </>

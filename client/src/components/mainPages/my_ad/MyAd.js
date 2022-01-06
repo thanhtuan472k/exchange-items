@@ -1,22 +1,22 @@
 import React, {useContext } from "react";
 import { GlobalState } from "../../../globalState";
-import ProductItem from "../utils/product_item/ProductItem";
+import PostItem from "../utils/post_item/PostItem";
 import Loading from "../utils/loading/Loading";
 
 export default function MyAd() {
   const state = useContext(GlobalState);
   const [token] = state.token;
   const [myAd] = state.adAPI.myAd;
-  const [callback, setCallback] = state.productsAPI.callback;
+  const [callback, setCallback] = state.postsAPI.callback;
   
   return (
     <>
       <div className="products">
-        {myAd.map((product) => {
+        {myAd.map((post) => {
           return (
-            <ProductItem
-              key={product._id}
-              product={product}
+            <PostItem
+              key={post._id}
+              post={post}
               token={token}
               callback={callback}
               setCallback={setCallback}

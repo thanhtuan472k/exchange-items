@@ -19,13 +19,13 @@ function SellApp() {
   const state = useContext(GlobalState);
   const [user] = state.userAPI.user;
   const [categories] = state.categoriesAPI.categories;
-  const [product, setProduct] = useState(initialState);
+  const [post, setPost] = useState(initialState);
   const [image, setImage] = useState(false);
   const [loading, setLoading] = useState(false);
   const [token] = state.token;
-  const [products] = state.productsAPI.products;
+  const [posts] = state.postsAPI.posts;
   const [edit, setEdit] = useState(false);
-  const [callback, setCallback] = state.productsAPI.callback;
+  const [callback, setCallback] = state.postsAPI.callback;
   const [adCallback, setAdCallback] = state.adAPI.adCallback;
   const param = useParams();
   const history = useHistory();
@@ -49,18 +49,18 @@ function SellApp() {
   useEffect(() => {
     if (param.id) {
       setEdit(true);
-      products.forEach((product) => {
-        if (product._id === param.id) {
-          setProduct(product);
-          setImage(product.image);
-        }
+      posts.forEach((post) => {
+          if (post._id === param.id) {
+              setPost(post);
+              setImage(post.image);
+          }
       });
     } else {
       setEdit(false);
-      setProduct(initialState);
+      setPost(initialState);
       setImage(false);
     }
-  }, [param.id, products]);
+  }, [param.id, posts]);
 
   //upload handler
   const handleUpload = async (e) => {
@@ -140,7 +140,7 @@ function SellApp() {
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    setProduct({ ...product, [name]: value });
+    setPost({ ...post, [name]: value });
   };
 
   //submit handler
@@ -153,9 +153,9 @@ function SellApp() {
       // return toastNotification("please attach image", "error");
       if (edit) {
         const res = await axios.put(
-          `/api/products/${product._id}`,
+          `/api/posts/${post._id}`,
           {
-            ...product,
+            ...post,
             image,
           },
           {
@@ -167,9 +167,9 @@ function SellApp() {
         message = res.data.message;
       } else {
         const res = await axios.post(
-          "/api/products",
+          "/api/posts",
           {
-            ...product,
+            ...post,
             seller_id: user._id, // doi seller_id thanh objectId của mongoose
             seller_name: user.name,
             student_class: user.student_class,
@@ -198,13 +198,15 @@ function SellApp() {
         // message = res.data.message;
       }
       setImage(false);
-      setProduct(initialState);
+      setPost(initialState);
       setCallback(!callback);
       setAdCallback(!adCallback);
-      toastify(message, "success");
+      toastify("Đăng bài thành công", "success");
+      window.location.href = '/';
       if(edit){
         history.push("/sell");
       }
+      
       // history.push("/");
     } catch (error) {
       alert(error.response.data.message);
@@ -237,11 +239,11 @@ function SellApp() {
             </div> */}
                       <div className="row">
                           <label htmlFor="title">Tiêu đề</label>
-                          <input type="text" name="title" id="title" value={product.title} onChange={handleChange} />
+                          <input type="text" name="title" id="title" value={post.title} onChange={handleChange} />
                       </div>
                       <div className="row">
                           <label htmlFor="price">Giá</label>
-                          <input type="number" name="price" id="price" value={product.price} onChange={handleChange} />
+                          <input type="number" name="price" id="price" value={post.price} onChange={handleChange} />
                       </div>
                       <div className="row">
                           <label htmlFor="description">Mô tả chi tiết</label>
@@ -250,7 +252,7 @@ function SellApp() {
                               name="description"
                               id="description"
                               rows="5"
-                              value={product.description}
+                              value={post.description}
                               onChange={handleChange}
                           />
                       </div>
@@ -263,13 +265,7 @@ function SellApp() {
                 value={product.category}
                 onChange={handleChange}
               /> */}
-                          <select
-                              name="category"
-                              id="category"
-                              value={product.category}
-                              onChange={handleChange}
-                              required
-                          >
+                          <select name="category" id="category" value={post.category} onChange={handleChange} required>
                               <option value="">Chọn danh mục bài đăng</option>
                               {categories.map((category) => {
                                   return (
@@ -324,7 +320,7 @@ function SellApp() {
                           </div>
                       </div>
                       <button type="submit">
-                          <span>{edit ? 'Update' : 'Đăng bài'}</span>
+                          <span>{edit ? 'Cập nhật' : 'Đăng bài'}</span>
                       </button>
                   </form>
               </div>
