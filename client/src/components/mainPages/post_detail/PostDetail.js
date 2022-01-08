@@ -2,7 +2,9 @@ import React, { useState, useContext, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { GlobalState } from "../../../globalState";
 import Star from "../../../icons/star.svg";
+import { formatDateTime } from "../utils/format/common";
 import PostItem from "../utils/post_item/PostItem";
+import moment from "moment";
 
 export default function PostDetail() {
   const params = useParams();
@@ -53,8 +55,9 @@ export default function PostDetail() {
                           <p>
                               <span>Số điện thoại:</span> {postDetail.phone}
                           </p>
+                        
                           <p>
-                              <span>Thời gian đăng</span> {postDetail.createdAt}
+                              <span>Thời gian đăng</span>{moment(postDetail.createdAt).startOf('minute').fromNow()}
                           </p>
                       </div>
                       <Link to={`/chat/${postDetail.seller_id}`} className="chat-seller">
@@ -71,9 +74,7 @@ export default function PostDetail() {
               <h2>Các món đồ tương tự</h2>
               <div className="products">
                   {posts.map((post) => {
-                      return post.category === postDetail.category ? (
-                          <PostItem key={post._id} post={post} />
-                      ) : null;
+                      return post.category === postDetail.category ? <PostItem key={post._id} post={post} /> : null;
                   })}
               </div>
           </div>
