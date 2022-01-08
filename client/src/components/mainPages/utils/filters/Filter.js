@@ -14,7 +14,7 @@ export default function Filter() {
   };
 
   return (
-    <div className="filter_menu">
+    <div className="filter_menu bg-dark">
       <div className="filter-row">
         <span id="" onClick={handleClick}>
           All

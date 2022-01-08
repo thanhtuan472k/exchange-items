@@ -40,7 +40,7 @@ export default function Header() {
         left: menu ? 0 : '-100%',
     };
     return (
-        <header>
+        <header className='d-flex align-content-center'>
             <div className="menu" onClick={() => setMenu(!menu)}>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -59,7 +59,7 @@ export default function Header() {
                     {/* <span></span> */}
                 </Link>
             </div>
-            <ul style={styleMenu}>
+            <ul style={styleMenu} className='mb-0'>
                 <li onClick={() => setMenu(!menu)}>
                     <Link to="/">{'Trang chủ'}</Link>
                 </li>

@@ -71,16 +71,24 @@ app.use("/user", require("./routes/user.route"));
 app.use("/rooms", auth, require("./routes/chat.route"));
 app.use("/api", require("./routes/category.route"));
 app.use("/api", require("./routes/upload.route"));
-app.use("/api", require("./routes/product.route"));
+app.use("/api", require("./routes/post.route"));
 app.use("/api", require("./routes/ad.route"));
 
 //
-app.get("*", (req, res) => {
-  return res.status(404).json({
-    success: false,
-    message: "API endpoint doesn't exist",
-  });
-})
+if (process.env.NODE_ENV === "production") {
+  // Set static folder
+  app.use(express.static('client/build'));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(_dirname, 'client', 'build', 'index.html'))
+  })
+}
+// app.get("*", (req, res) => {
+//   return res.status(404).json({
+//     success: false,
+//     message: "API endpoint doesn't exist",
+//   });
+// })
 //
 const URI = process.env.MONGODB_URL;
 const PORT = process.env.PORT || 5000;

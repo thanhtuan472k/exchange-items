@@ -1,9 +1,9 @@
-const Products = require("../models/product.model");
+const Posts = require("../models/post.model");
 
 const myAdCtrl = {
   getMyAd: async (req, res) => {
     try {
-      const ad = await Products.find({ seller_id: req.user.id });
+      const ad = await Posts.find({ seller_id: req.user.id });
       res.status(200).json({
         status: "success",
         length: ad.length,

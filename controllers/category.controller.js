@@ -16,13 +16,13 @@ const categoryCtrl = {
           if (category) {
             return res
               .status(200)
-              .json({ message: "category not created, already exists" });
+              .json({ message: "Danh mục đã tồn tại" });
           }
           const newCategory = new Category({ name });
           const savedCategory = await newCategory.save();
           res
             .status(201)
-            .json({ category: savedCategory, message: "category added" });
+            .json({ category: savedCategory, message: "Thêm danh mục thành công" });
         } catch (error) {
             return res.status(500).json({ message: error.message });
         }
@@ -30,7 +30,7 @@ const categoryCtrl = {
     deleteCategory: async (req, res) => {
         try{
             const delCategory = await Category.findByIdAndDelete(req.params.id);
-            res.json({message: "deleted category"})
+            res.json({message: "Xóa danh mục thành công"})
         }
         catch(error){
             return res.status(500).json({ message: error.message });
@@ -40,7 +40,7 @@ const categoryCtrl = {
         try {
             const {name} = req.body;
             await Category.findByIdAndUpdate({_id: req.params.id}, {name});
-            res.json({ message: "category updated" });
+            res.json({ message: "Cập nhật danh mục thành công" });
         } catch (error) {
             return res.status(500).json({ message: error.message });
         }

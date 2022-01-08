@@ -1,40 +1,45 @@
 const Users = require("../models/user.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const ErrorResponse = require('../utils/errorResponse');
 
 const userCtrl = {
   register: async (req, res) => {
     try {
-      const { name, email, password, study_year, course, location, phone } = req.body;
+      const { username, email, password, name, student_class, major, phone, gender, address } = req.body;
       if (
-        !name ||
-        !study_year ||
-        !course ||
+        !username ||
         !email ||
         !password ||
-        !location ||
-        !phone
+        !name ||
+        !student_class ||
+        !major ||
+        !phone ||
+        !gender ||
+        !address
       ) {
-        return res.status(400).json({ message: "fill all the field" });
+        return res.status(400).json({ message: "Vui lòng nhập đầy đủ thông tin" });
       }
       if (password.length < 6) {
         return res
           .status(400)
-          .json({ message: "passsword should be atleast 6 character long" });
+          .json({ message: "Mật khẩu phải dài hơn 6 kí tự" });
       }
-      const user = await Users.findOne({ email });
+      const user = await Users.findOne({ username });
       if (user) {
-        return res.status(400).json({ message: "email already exists" });
+        return res.status(400).json({ message: "Tên đăng nhập đã tồn tại" });
       }
       // password hashing
       const newUser = new Users({
-        name,
+        username,
         email,
         password,
-        study_year,
-        course,
-        location,
+        name,
+        student_class,
+        major,
         phone,
+        gender,
+        address,
       });
       bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
@@ -44,7 +49,7 @@ const userCtrl = {
           newUser
             .save()
             .then(() => {
-              console.log("registered...");
+              console.log("Đăng kí ok");
             })
             .catch((e) => {
               console.log(e);
@@ -53,7 +58,7 @@ const userCtrl = {
       });
       //
       const refreshtoken = createRefreshToken({ id: newUser._id });
-      const accesstoken = createAccessToken({ id: newUser.id });
+      const accesstoken = createAccessToken({ id: newUser._id });
       //
       res.cookie("refreshtoken", refreshtoken, {
         httpOnly: true,
@@ -68,15 +73,15 @@ const userCtrl = {
   },
   login: async (req, res) => {
     try {
-      const { email, password } = req.body;
-      const user = await Users.findOne({ email });
-      if (!user) return res.status(400).json({ message: "Nguoi dung ko ton tai" });
+      const { username, password } = req.body;
+      const user = await Users.findOne({ username }).select("+password");
+      if (!user) return res.status(400).json({ message: "Tên đăng nhập không tồn tại" });
       const ismatch = await bcrypt.compare(password, user.password);
       if (!ismatch)
-        return res.status(400).json({ message: "Mat khau khong dung" });
+        return res.status(400).json({ message: "Mật khẩu không chính xác" });
       //
       const refreshtoken = createRefreshToken({ id: user._id });
-      const accesstoken = createAccessToken({ id: user.id });
+      const accesstoken = createAccessToken({ id: user._id });
       console.log(refreshtoken);
       console.log(accesstoken);
       //
@@ -102,11 +107,13 @@ const userCtrl = {
     try {
       const rf_token = req.cookies.refreshtoken;
       if (!rf_token) {
-        return res.status(400).json({ message: "please login or register" });
+        return res.status(400).json({ message: "Vui lòng đăng nhập lại hoặc đăng ký" });
       }
       jwt.verify(rf_token, process.env.REFRESH_TOKEN_ACCESS, (e, user) => {
         if (e) {
-          res.status(400).json({ message: "please login or register" });
+          res
+            .status(400)
+            .json({ message: "Vui lòng đăng nhập lại hoặc đăng ký" });
         }
         const accesstoken = createAccessToken({ id: user.id });
         res.json({ accesstoken });
@@ -120,7 +127,7 @@ const userCtrl = {
     try {
       const user = await Users.findById(req.user.id).select("-password");
       if (!user)
-        return res.status(400).json({ message: "user does not exist" });
+        return res.status(400).json({ message: "Tên đăng nhập không tồn tại" });
       res.json(user);
     } catch (error) {
       return res.status(500).json({ message: error.message });
@@ -130,7 +137,7 @@ const userCtrl = {
     try {
       const user = await Users.findById(req.params.userId).select("-password");
       if (!user)
-        return res.status(400).json({ message: "user does not exist" });
+        return res.status(400).json({ message: "Tên đăng nhập không tồn tại" });
       res.json(user);
     } catch (error) {
       return res.status(500).json({ message: error.message });

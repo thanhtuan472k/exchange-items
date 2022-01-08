@@ -13,7 +13,7 @@ cloudinary.config({
 });
 
 //upload
-router.post('/upload', auth, (req, res) => {
+router.post('/upload', (req, res) => {
     try {
         if(!req.files || Object.keys(req.files).length == 0){
             return res.status(400).json({message: "no file uploaded"})
