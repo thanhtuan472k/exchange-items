@@ -1,4 +1,4 @@
-@font-face {
+/* @font-face {
   font-family: "Gilroy";
   src: local("Gilroy"), url("./fonts/gilroy-extrabold.otf") format("opentype");
   font-weight: bold;
@@ -12,12 +12,12 @@
   font-family: "Caros";
   src: local("Caros"), url("./fonts/caros-extrabold.otf") format("opentype");
   font-weight: bold;
-}
+} */
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: 'Poppins", sans-serif';
+  font-family: 'Poppins', sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

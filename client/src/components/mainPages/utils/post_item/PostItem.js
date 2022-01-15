@@ -5,6 +5,7 @@ import PostCardButton from './PostCardButton';
 import toast, { Toaster } from 'react-hot-toast';
 import { GlobalState } from '../../../../globalState';
 import { formatPriceVN } from '../format/common';
+import moment from 'moment';
 
 export default function PostItem({ post, token, callback, setCallback }) {
     const state = useContext(GlobalState);
@@ -60,7 +61,10 @@ export default function PostItem({ post, token, callback, setCallback }) {
                         </p>
                         <p>
                             <img src={Location} alt="menu-icon" width="9" height="9" className="location-icon" />{' '}
-                            {post.location}
+                            {post.address}
+                        </p>
+                        <p>
+                           {moment(post.createdAt).startOf('minute').fromNow()}
                         </p>
                     </div>
                 </div>

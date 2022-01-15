@@ -13,6 +13,8 @@ export default function Filter() {
     console.log(e.target.id);
   };
 
+  
+
   return (
     <div className="filter_menu bg-dark">
       <div className="filter-row">

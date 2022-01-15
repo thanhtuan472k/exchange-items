@@ -84,7 +84,7 @@ small {
     text-align: center;
     text-transform: lowercase;
 }
-input:-webkit-autofill,
+/* input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
@@ -92,7 +92,7 @@ input:-webkit-autofill:active {
 }
 input:-webkit-autofill {
     -webkit-text-fill-color: #e7e9bb !important;
-}
+} */
 @media screen and (max-width: 375px) {
     .login-page {
         padding: 10px;

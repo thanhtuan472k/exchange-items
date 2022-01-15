@@ -4,7 +4,9 @@ import axios from 'axios';
 export default function UserAPI(token) {
     const [isLogged, setIsLogged] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(false);
+    const [callback, setCallback] = useState(false);
+
 
     // Get user
     useEffect(() => {
@@ -35,5 +37,6 @@ export default function UserAPI(token) {
         isLogged: [isLogged, setIsLogged],
         isAdmin: [isAdmin, setIsAdmin],
         user: [user, setUser],
+        callback: [callback, setCallback]
     };
 }

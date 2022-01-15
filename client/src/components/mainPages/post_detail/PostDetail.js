@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { GlobalState } from "../../../globalState";
 import Star from "../../../icons/star.svg";
-import { formatDateTime } from "../utils/format/common";
+import { formatDateTime, formatPriceVN } from "../utils/format/common";
 import PostItem from "../utils/post_item/PostItem";
 import moment from "moment";
 
@@ -32,7 +32,7 @@ export default function PostDetail() {
                           <h2>{postDetail.title}</h2>
                           {/* <hr /> */}
                       </div>
-                      <p className="price">{postDetail.price} VNĐ</p>
+                      <p className="price">{formatPriceVN(postDetail.price)}</p>
                       {/* <div className="condition">
               <span>condition- </span>
               <img src={Star} alt="" />
@@ -55,9 +55,9 @@ export default function PostDetail() {
                           <p>
                               <span>Số điện thoại:</span> {postDetail.phone}
                           </p>
-                        
+
                           <p>
-                              <span>Thời gian đăng</span>{moment(postDetail.createdAt).startOf('minute').fromNow()}
+                              <span>Thời gian đăng:</span> {moment(postDetail.createdAt).startOf('minute').fromNow()}
                           </p>
                       </div>
                       <Link to={`/chat/${postDetail.seller_id}`} className="chat-seller">

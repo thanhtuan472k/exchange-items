@@ -11,7 +11,7 @@ export default function Load() {
           {result < (page * 6) ? (
             ""
           ) : (
-            <button onClick={(e) => setPage(page + 1)}>Load More</button>
+            <button onClick={(e) => setPage(page + 1)}>Tải thêm</button>
           )}
         </div>
     );
