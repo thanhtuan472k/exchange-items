@@ -53,9 +53,9 @@ header {
     color: #0113ff !important;
 }
 
-.nav-link:hover {
+/* .nav-link:hover {
     color: #0113ff !important;
-}
+} */
 
 .header .header-right .menu {
     display: none;

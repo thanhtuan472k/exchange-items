@@ -132,7 +132,7 @@ export default function Header() {
                         <div className="menu">
                             <img className="header-menu" src={Menu}></img>
                         </div>
-                        <div className={menu ? 'rp-menu-child active' : 'rp-menu-child'}>
+                        {/* <div className={menu ? 'rp-menu-child active' : 'rp-menu-child'}>
                             <div className="rp-menu-child-close" onClick={() => setMenu(false)}>
                                 X
                             </div>
@@ -154,14 +154,14 @@ export default function Header() {
                                 </NavLink>
                             </div>
                             {isAdmin ? adminRoute() : ''}
-                        </div>
+                        </div> */}
                     </>
                 ) : (
                     <>
                         <div className="menu">
                             <img className="header-menu" src={Menu}></img>
                         </div>
-                        <div className={menu ? 'rp-menu-child active' : 'rp-menu-child'}>
+                        {/* <div className={menu ? 'rp-menu-child active' : 'rp-menu-child'}>
                             <div className="rp-menu-child-close" onClick={() => setMenu(false)}>
                                 X
                             </div>
@@ -183,7 +183,7 @@ export default function Header() {
                                     </NavLink>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </>
                 )}
                 {isLogged && user ? (
