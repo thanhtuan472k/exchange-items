@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function CategoriesApi() {
+function CategoriesAPI() {
     const [categories, setCategories] = useState([]);
     const [callcack, setCallback] = useState(false);
 
@@ -19,4 +19,4 @@ function CategoriesApi() {
     };
 }
 
-export default CategoriesApi;
+export default CategoriesAPI;
