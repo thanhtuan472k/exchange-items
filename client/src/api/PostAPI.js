@@ -12,13 +12,17 @@ export default function PostAPI() {
   const [callback, setCallback] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  // exchange item
+  const addExchange = async (post) => {
+    
+  }
   // get posts
   useEffect(() => {
     const getPosts = () => {
       setLoading(true)
       axios.get(
         `/api/posts?limit=${
-          page * 8
+          page * 10
         }&${category}&${sort}&title[regex]=${search}`
       ).then((res) => {
         setLoading(false);
