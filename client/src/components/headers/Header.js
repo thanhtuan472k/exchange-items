@@ -3,6 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import axios from 'axios';
 import Cart from './icons/cart.svg';
 import Menu from './icons/menu.svg';
+import Down from './icons/caret-down.svg';
 import './Header.css';
 // import CartHover from '../mainpage/cartHover/CartHover';
 import { GlobalState } from '../../globalState';
@@ -38,21 +39,14 @@ export default function Header() {
     const adminRoute = () => {
         return (
             <>
-                <NavLink
-                    to="/create_product"
-                    activeClassName="nav-link--active"
-                    className="nav-link"
-                    exact
-                >
-                    Create Product
+                <NavLink to="/dashboard" activeClassName="nav-link--active" className="nav-link" exact>
+                    Thống kê
                 </NavLink>
-                <NavLink
-                    to="/categories"
-                    activeClassName="nav-link--active"
-                    className="nav-link"
-                    exact
-                >
-                    Thêm danh mục
+                <NavLink to="/quan-ly-danh-muc" activeClassName="nav-link--active" className="nav-link" exact>
+                    Quản lý danh mục
+                </NavLink>
+                <NavLink to="/quan-ly-bai-dang" activeClassName="nav-link--active" className="nav-link" exact>
+                    Quản lý bài đăng
                 </NavLink>
             </>
         );
@@ -112,20 +106,13 @@ export default function Header() {
             </ul>
             <div className="header-right">
                 <button type="button" class="btn btn-success">
-                    <NavLink to="/sell" activeClassName="nav-link--active" className="nav-link" exact>
+                    <NavLink to="/dang-bai" activeClassName="nav-link--active" className="nav-link" exact>
                         Đăng bài
                     </NavLink>
                 </button>
-                <NavLink to="/my_ad" activeClassName="nav-link--active" className="nav-link" exact>
+                <NavLink to="/bai-dang-cua-toi" activeClassName="nav-link--active" className="nav-link" exact>
                     Bài đăng của tôi
                 </NavLink>
-                {/* <div className={isLogged === false ? "cart" : "cart"}> */}
-                {/* <Link to="/cart">
-              <span className="nb">{cart.length}</span>
-              <img src={Cart} alt="cart"></img>
-            </Link> */}
-                {/* <CartHover cart={cart} /> */}
-                {/* </div> */}
 
                 {isLogged && user ? (
                     <>
@@ -190,19 +177,29 @@ export default function Header() {
                     <div className="profile-box">
                         <div className="profile">
                             <div className="profile-name"> Chào,{user.name}</div>
-                            <i className="fas fa-sort-down"></i>
+                            {/* <i className="fas fa-sort-down"></i> */}
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                fill="currentColor"
+                                class="bi bi-caret-down"
+                                viewBox="0 0 16 16"
+                            >
+                                <path d="M3.204 5h9.592L8 10.481 3.204 5zm-.753.659 4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z" />
+                            </svg>
                         </div>
                         <div className="profile-child">{userRoute()}</div>
                     </div>
                 ) : (
                     <div className="menu-login-sm">
                         <div>
-                            <NavLink to="/login" className="nav-link" activeClassName="nav-link--active">
+                            <NavLink to="/dang-nhap" className="nav-link" activeClassName="nav-link--active">
                                 Đăng nhập
                             </NavLink>
                         </div>
                         <div>
-                            <NavLink to="/register" className="nav-link" activeClassName="nav-link--active">
+                            <NavLink to="/dang-ky" className="nav-link" activeClassName="nav-link--active">
                                 Đăng ký
                             </NavLink>
                         </div>

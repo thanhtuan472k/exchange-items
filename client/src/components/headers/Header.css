@@ -50,7 +50,7 @@ header {
 }
 
 .nav-link--active {
-    color: #0113ff !important;
+    color: rgb(131, 197, 23) !important;
 }
 
 /* .nav-link:hover {
